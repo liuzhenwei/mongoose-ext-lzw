@@ -1,0 +1,19 @@
+{
+  "name": "mongoose-ext-lzw",
+  "version": "1.0.0",
+  "description": "mongoose extension function",
+  "readme": "mongoose extension function",
+  "main": "index.js",
+  "keywords": [
+    "mongoose"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/liuzhenwei/mongoose-ext-lzw"
+  },
+  "author": "liuzhenwei",
+  "dependencies": {
+    "mongoose": "^4.7.6"
+  },
+  "license": "MIT"
+}
