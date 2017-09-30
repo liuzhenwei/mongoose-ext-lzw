@@ -11,8 +11,10 @@ mongoose.Promise = global.Promise;
  * @param {object} conn   已打开数据库连接
  */
 function ModelClass(name, schema, conn) {
+	const _schema = new mongoose.Schema(schema);
 	this.conn = conn;
-	this.model = this.conn.model(name, new mongoose.Schema(schema), name);
+	this.schema = _schema;
+	this.model = this.conn.model(name, _schema, name);
 }
 
 ModelClass.prototype = {
