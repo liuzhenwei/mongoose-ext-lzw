@@ -11,13 +11,25 @@ mongoose.Promise = global.Promise;
  * @param {object} conn   已打开数据库连接
  */
 function ModelClass(name, schema, conn) {
-	const _schema = new mongoose.Schema(schema);
+	const Schema = new mongoose.Schema(schema);
+	this.name = name;
 	this.conn = conn;
-	this.schema = _schema;
-	this.model = this.conn.model(name, _schema, name);
+	this.Schema = Schema;
+	this.__schema = schema;
+	this.model = this.conn.model(name, Schema, name);
 }
 
 ModelClass.prototype = {
+	schemaAdd: function(schema) {
+		this.Schema.add(schema);
+	},
+
+	schemaReset: function() {
+		const Schema = new mongoose.Schema(this.__schema);
+		this.Schema = Schema;
+		this.model = this.conn.model(this.name, Schema, this.name);
+	},
+
 	query: function(query) {
 		query = query || {};
 
