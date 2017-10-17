@@ -11,7 +11,12 @@ mongoose.Promise = global.Promise;
  * @param {object} conn   已打开数据库连接
  */
 function ModelClass(name, schema, conn) {
-	const Schema = new mongoose.Schema(schema);
+	let Schema;
+	if (schema.hasOwnProperty('_id')) {
+		Schema = new mongoose.Schema(schema, {_id: false});
+	} else {
+		Schema = new mongoose.Schema(schema);
+	}
 	this.name = name;
 	this.conn = conn;
 	this.Schema = Schema;
@@ -25,7 +30,12 @@ ModelClass.prototype = {
 	},
 
 	schemaReset: function() {
-		const Schema = new mongoose.Schema(this.__schema);
+		let Schema;
+		if (this.__schema.hasOwnProperty('_id')) {
+			Schema = new mongoose.Schema(this.__schema, {_id: false});
+		} else {
+			Schema = new mongoose.Schema(this.__schema);
+		}
 		this.Schema = Schema;
 		this.model = this.conn.model(this.name, Schema, this.name);
 	},
