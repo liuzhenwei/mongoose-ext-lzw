@@ -83,7 +83,8 @@ ModelClass.prototype = {
 			}
 			if (options.sort) {
 				Query = Query || Model.find(query);
-				Query.sort({_id: options.sort});
+				const sort =  (Object.prototype.toString.call(options.sort) === '[object Object]') ? options.sort : {_id: options.sort};
+				Query.sort(sort);
 			}
 		}
 
