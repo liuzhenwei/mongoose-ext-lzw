@@ -159,7 +159,7 @@ ModelClass.prototype = {
 				return;
 			}
 			if (result && result.length > 0) {
-				Model.update(query, {$set: data}, (updateErr) => {
+				Model.update(query, {$set: data}, {multi: true}, (updateErr) => {
 					if (updateErr) {
 						callback(updateErr, null);
 						return;
