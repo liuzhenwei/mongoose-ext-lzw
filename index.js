@@ -396,7 +396,7 @@ Connection.prototype = {
 		for (const name in models) {
 			this[name] = new ModelClass(name, models[name], this.conn);
 		}
-	}
+	},
 
 	/**
 	 * 定义数据库可操作的表结构（打开数据表）
