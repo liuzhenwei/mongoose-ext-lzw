@@ -196,29 +196,26 @@ ModelClass.prototype = {
 	 * 更新数据，参照mongoose的方式更新
 	 * @param {object}   query    查询条件
 	 * @param {object}   update   更新数据的对象，参考mongoose相关说明
+	 * @param {object}   options  更新命令的参数
 	 * @param {Function} callback
 	 */
-	update: function(query, update, callback) {
+	update: function(query, update, options, callback) {
 		const Model = this.model;
 
-		callback = callback || function() {};
+		if (typeof (options) == 'function') {
+			callback = options;
+			options = {};
+		} else {
+			options = options || {};
+			callback = callback || function() {};
+		}
 
-		return Model.find(query, (error, result) => {
+		return Model.update(query, update, options, (error) => {
 			if (error) {
 				callback(error, null);
 				return;
 			}
-			if (result && result.length > 0) {
-				Model.update(query, update, (updateErr) => {
-					if (updateErr) {
-						callback(updateErr, null);
-						return;
-					}
-					this.get(query, callback);
-				});
-				return;
-			}
-			callback({message: 'not found'}, null);
+			this.get(query, callback);
 		});
 	},
 
