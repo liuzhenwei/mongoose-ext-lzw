@@ -235,7 +235,7 @@ ModelClass.prototype = {
 				callback(error, null);
 				return;
 			}
-			this.getById(id, callback);
+			callback(null, result);
 		});
 	},
 
